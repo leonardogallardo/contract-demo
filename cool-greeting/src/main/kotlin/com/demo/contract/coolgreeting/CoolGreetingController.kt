@@ -1,4 +1,4 @@
-package com.example.coolgreeting
+package com.demo.contract.coolgreeting
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping

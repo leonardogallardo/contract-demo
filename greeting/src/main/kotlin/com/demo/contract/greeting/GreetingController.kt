@@ -1,4 +1,4 @@
-package com.contrato.pagseguro.greeting
+package com.demo.contract.greeting
 
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

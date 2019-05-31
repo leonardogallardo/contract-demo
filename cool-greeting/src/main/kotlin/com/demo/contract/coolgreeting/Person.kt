@@ -1,4 +1,4 @@
-package com.example.coolgreeting
+package com.demo.contract.coolgreeting
 
 import javax.validation.constraints.NotEmpty
 

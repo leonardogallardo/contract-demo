@@ -1,4 +1,4 @@
-package com.example.coolgreeting
+package com.demo.contract.coolgreeting
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

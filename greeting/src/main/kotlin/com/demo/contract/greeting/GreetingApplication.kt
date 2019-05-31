@@ -1,4 +1,4 @@
-package com.contrato.pagseguro.greeting
+package com.demo.contract.greeting
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

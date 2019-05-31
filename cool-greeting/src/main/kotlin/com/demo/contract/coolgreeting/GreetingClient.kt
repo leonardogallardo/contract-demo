@@ -1,4 +1,4 @@
-package com.example.coolgreeting
+package com.demo.contract.coolgreeting
 
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.PostMapping
