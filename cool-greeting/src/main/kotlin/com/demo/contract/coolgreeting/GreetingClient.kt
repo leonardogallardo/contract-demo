@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping
 interface GreetingClient {
 
     @PostMapping(value = "/greeting")
-    fun getGreeting(person : Person): Message
+    fun getGreeting(person : PersonGreeting): Message
 
 }

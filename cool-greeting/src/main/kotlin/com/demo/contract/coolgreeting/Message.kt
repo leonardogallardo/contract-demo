@@ -1,4 +1,3 @@
 package com.demo.contract.coolgreeting
 
-data class Message(val message: String) {
-}
+data class Message(val message: String)
