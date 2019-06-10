@@ -2,8 +2,10 @@
 
 import org.springframework.cloud.contract.spec.Contract
 
+import java.util.concurrent.ThreadLocalRandom
+
 Contract.make {
-    description "should return person by id=1"
+    description "Should return greeting message"
 
     request {
         url "/greeting"
@@ -12,9 +14,10 @@ Contract.make {
             contentType applicationJson()
         }
         body (
-            name: "Toninho",
-            category: 1
-        )
+            name: anyNonEmptyString(),
+            category: ThreadLocalRandom.current().nextInt(1, 3 + 1)
+
+		)
     }
 
     response {
@@ -23,7 +26,7 @@ Contract.make {
             contentType applicationJson()
         }
         body (
-                message: "Oizinho Toninho. Seja bem vindo!"
+                message: regex("(.*?)")
         )
     }
 }

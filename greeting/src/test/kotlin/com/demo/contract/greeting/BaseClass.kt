@@ -10,7 +10,7 @@ import org.springframework.web.context.WebApplicationContext
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(classes = [GreetingApplication::class])
-abstract class GreetBase {
+abstract class BaseClass {
 
 	@Autowired
 	lateinit var wac: WebApplicationContext

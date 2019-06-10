@@ -1,11 +1,9 @@
-
-
 import org.springframework.cloud.contract.spec.Contract
 
 import java.util.concurrent.ThreadLocalRandom
 
 Contract.make {
-    description "Should return greeting message"
+    description "should return bad request"
 
     request {
         url "/greeting"
@@ -13,20 +11,26 @@ Contract.make {
         headers {
             contentType applicationJson()
         }
-        body (
-            name: anyNonEmptyString(),
-            category: ThreadLocalRandom.current().nextInt(1, 3 + 1)
+        body(
+                name: "",
+                category: ThreadLocalRandom.current().nextInt(4, Integer.MAX_VALUE)
 
-		)
+        )
     }
 
     response {
-        status OK()
+        status BAD_REQUEST()
         headers {
             contentType applicationJson()
         }
-        body (
-                message: regex("(.*?)")
+        body(
+                status: 'BAD_REQUEST',
+                message: regex("(.*?)"),
+                errors: []
         )
+        bodyMatchers {
+            jsonPath('$.errors', byCommand('assertThatJson($it.toString()).array().hasSize(2)'))
+
+        }
     }
 }
