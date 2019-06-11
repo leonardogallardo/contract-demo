@@ -1,8 +1,7 @@
 
 
 import org.springframework.cloud.contract.spec.Contract
-
-import java.util.concurrent.ThreadLocalRandom
+import org.springframework.cloud.contract.spec.internal.RegexPatterns
 
 Contract.make {
     description "Should return greeting message"
@@ -14,8 +13,8 @@ Contract.make {
             contentType applicationJson()
         }
         body (
-            name: anyNonEmptyString(),
-            category: ThreadLocalRandom.current().nextInt(1, 3 + 1)
+            name: value(consumer(regex(new RegexPatterns().nonBlank())), producer("leonardo")),
+            category: value(consumer(regex("[1-3]")), producer("2")),
 
 		)
     }
@@ -26,7 +25,7 @@ Contract.make {
             contentType applicationJson()
         }
         body (
-                message: regex("(.*?)")
+                message: value(consumer("random message"), producer(regex(new RegexPatterns().nonBlank())))
         )
     }
 }

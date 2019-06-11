@@ -1,4 +1,5 @@
 import org.springframework.cloud.contract.spec.Contract
+import org.springframework.cloud.contract.spec.internal.RegexPatterns
 
 import java.util.concurrent.ThreadLocalRandom
 
@@ -12,8 +13,8 @@ Contract.make {
             contentType applicationJson()
         }
         body(
-                name: "",
-                category: ThreadLocalRandom.current().nextInt(4, Integer.MAX_VALUE)
+                name: value(consumer(""), producer("")),
+                category: value(consumer(regex("^(?![123]\$)\\d+\$")), producer("4")),
 
         )
     }
@@ -25,12 +26,11 @@ Contract.make {
         }
         body(
                 status: 'BAD_REQUEST',
-                message: regex("(.*?)"),
-                errors: []
+                message: value(consumer("this is an error"), producer(regex(new RegexPatterns().nonBlank()))),
+                errors: value(consumer(["err 1", "err 2"]))
         )
         bodyMatchers {
             jsonPath('$.errors', byCommand('assertThatJson($it.toString()).array().hasSize(2)'))
-
         }
     }
 }

@@ -14,12 +14,14 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'spring-cloud-contract'
+apply plugin: 'maven-publish'
 
 group = 'com.demo.contract'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
