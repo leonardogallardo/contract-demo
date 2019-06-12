@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.junit.runner.RunWith
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
+import org.springframework.http.HttpStatus
+import org.springframework.http.client.ClientHttpResponse
 import org.springframework.web.client.ResponseErrorHandler
 
 
@@ -36,8 +38,9 @@ class ContractGreetingClientTest {
     fun should_return_bad_request() {
         // given:
         val restTemplate = RestTemplate()
-        restTemplate.errorHandler = ResponseErrorHandler {
-
+        restTemplate.errorHandler = object : ResponseErrorHandler {
+            override fun hasError(response: ClientHttpResponse) = false
+            override fun handleError(response: ClientHttpResponse) {}
         }
 
         // and:
@@ -48,7 +51,8 @@ class ContractGreetingClientTest {
 
         // then:
         BDDAssertions.then(personResponseEntity.statusCodeValue).isEqualTo(400)
-        BDDAssertions.then(personResponseEntity.statusCodeValue).isEqualTo("BAD_REQUEST")
+        BDDAssertions.then(personResponseEntity.body!!.status).isEqualTo(HttpStatus.BAD_REQUEST)
         BDDAssertions.then(personResponseEntity.body!!.message).isNotBlank()
+        BDDAssertions.then(personResponseEntity.body!!.errors).hasSize(2).allMatch { t -> t.isNotBlank() }
     }
 }
